@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_warranty_detail">
+	    	<t t-call="report.html_container">
+	            <t t-foreach="docs" t-as="doc">	            	             
+	                <div class="header">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
+                                <div style="height:80px;display:block;float:left;font-size:11px;width:350px;">
+                                   <h5><b t-esc="res_company.name"/></h5>
+                                    <t t-esc="res_company.partner_id.street"/><br/>
+                                    <t t-esc="res_company.partner_id.street2"/>
+                                    <t t-esc="res_company.partner_id.city"/>
+                                    <t t-esc="res_company.partner_id.state_id.name"/>
+                                    <t t-esc="res_company.partner_id.zip"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 text-center" style="height: 30px;">
+								<div class="text-center" style="font-size:23px;margin-top: -6px;">
+									<b><br/>
+										<div style="letter-spacing:3px;">GARANSI</div>
+				                        <div style="margin-top:-6px; letter-spacing:1px;font-size:23px;"><span t-esc="doc.name"/></div>
+				                    </b>
+						    	</div><br/><br/>
+					    	</div>
+                        </div>
+                    </div>
+
+				
+						<div class="page">
+					    	<div class="row mt32 mb32" id="informations">
+				                <div t-if="doc.partner_id.name" class="col-xs-3">
+				                    <strong>Customer :</strong><br/>
+				                    <t t-esc="doc.partner_id.name"/><br/>
+							        <t t-esc="doc.partner_id.street"/><br/>
+							        <t t-esc="doc.partner_id.city"/>
+							        <t t-esc="doc.partner_id.zip"/><br/>    
+							        <t t-esc="doc.partner_id.country_id.display_name"/><br/> 
+				                </div>
+				                <div t-if="doc.purchase_date" class="col-xs-3">
+				                    <strong t-if="doc.state not in ['draft','sent']">Date Ordered:</strong>
+				                    <strong t-if="doc.state in ['draft','sent']">Quotation Date:</strong>
+				                    <p t-field="doc.purchase_date"/>
+				                </div>                
+				            </div>
+							<div class="row" style="margin-top: 20px;">
+				                <div class="col-xs-12">
+				                    <table class="table table-condensed table-bordered" style="margin-top: 5px;font-size: 11px;">
+				                        <thead>
+				                            <tr>
+				                                <td class="text-center" style="border:1px solid #000;font-sie:13px;width:25%;">Produk</td>
+				                                <td class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">Serial Number</td>
+				                                <td class="text-center" style="border:1px solid #000;font-sie:13px;width:12%;">Tanggal Pengiriman</td>
+				                                <td class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">Tanggal Expire</td>
+				                                <td class="text-center" style="border:1px solid #000;font-sie:13px;width:25%;">Lokasi Pemasangan</td>
+				                            </tr>
+				                        </thead>
+				                        <tbody style="font-size: 12px; ">                                  
+				                            <tr>                                        
+				                                <td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+				                    	           <span t-esc="doc.product_id.name"/>
+				                                </td>
+				                                <td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+				                                    <span t-esc="doc.sno"/>
+				                                </td>
+				                                <td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"><span t-esc="doc.purchase_date"/></td>
+				                                <td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"><span t-esc="doc.warranty_end_date"/></td>
+				                                <td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"><span t-esc="doc.pasang_id"/></td> <br/>                 
+				                            </tr>
+				                        </tbody>
+				                    </table>
+				                </div>
+				            </div>
+							<div class="row" style="margin-top: 20px;">
+					            <div style="font-size: 12px; " class="col-xs-8">
+					                <div class="col-xs-4">
+					                    Disiapkan Oleh :<br/><br/><br/><br/><br/>
+					                    <t>
+					                    <span style="text-decoration:underline" t-esc="user.name"/>
+					                   	<br/>  Tgl. : <span t-field="doc.purchase_date" t-field-options="{'format': 'dd-MM-yyyy'}"/> 
+					                    </t>
+					                </div>
+					                <div class="col-xs-4">
+					                    Customer :<br/><br/><br/><br/><br/>
+					                    <t>
+					                    <span style="text-decoration:underline" t-esc="partner_id"/>
+					                    <br/>  Tgl. : <span t-field="doc.purchase_date" t-field-options="{'format': 'dd-MM-yyyy'}"/> 
+					                    </t>
+					                </div>              
+					            </div>
+					            <div style="font-size: 12px; " class="col-xs-4">
+					            	<table style="width: 100%;">
+					                	<tr>
+					            	    	<td style="border: 1px solid black;padding: 3px;">Keterangan :</td>
+					                	</tr>
+					                	<tr>
+					                		<td colspan="3" style="border: 1px solid black;padding: 3px;">
+						                    	<t t-if="not doc.internal_reference">
+						                    	&amp;nbsp;<br/>
+						                    	<br/>
+						                    	<br/>
+						                    	<br/>
+						                    	<br/>
+						                    	</t>
+						                		<span t-if="doc.internal_reference" t-field="doc.internal_reference"/>
+					                		</td>
+					                	</tr>
+					            	</table>
+					        	</div>
+					        </div>
+					       	<div class="row" style="margin-top: 20px;">
+					       		<table class="table table-bordered" style="margin-top: 10px; font-size: 11px;">
+		                                <tr>
+		                                    <td colspan="2" class="text-center" style="border:1px solid #000;background-color:#999">
+		                                        
+		                                    <b>WARRANTY    INFORMATION</b></td>
+		                                    
+		                                    </tr>
+										
+										<tr>
+		    								<br/>
+			       							<td class="text-left" style="border:1px solid #000; width:50%;">
+					     		      			<span><strong>A. PENGERTIAN GARANSI</strong><br/>
+												<div style="text-align:justify;">Garansi yang diberikan oleh InnoGRAPH adalah perbaikan atau
+												penggantian dilakukan dengan mengirimkan unit yang rusak
+												oleh konsumen, ke workshop InnoGRAPH di Jl. Lenteng Agung
+												Raya No.15 (Jl. Baung No. 2) Jakarta Selatan. Pengambilan unit
+												akan dilakukan oleh konsumen setelah dikonfirmasikan oleh
+												InnoGRAPH.<br/>
+												Pada garansi ini InnoGRAPH memberikan layanan respond time
+												1x3 jam dan resolution time 2x24 jam.</div></span><br/>
+						    			     	<br/>
+							   		
+										    </td>
+										    <td class="text-left" style="border:1px solid #000; width:50%;">
+					     		      			<span><strong>C. KETENTUAN TIDAK BERLAKU</strong><br/>
+												<div style="text-align:justify;">1. Kartu jaminan tidak terisi dengan lengkap atau tidak
+												 sesuai dengan nomor seri model atau Serial Number.<br/>
+												2. Kerusakan karena kelalaian (jatuh, terkena makanan/
+												 minuman atau salah dalam pengunaan tegangan arus
+												 listrik, dll).<br/>
+												3. Kerusakan yang disebabkan oleh bencana alam atau
+												 huru-hara.<br/>
+												4. Tergores, berkarat, noda yang disebabkan oleh
+												 penggunaan sehari-ha.<br/>
+												5. Perbaiakn atau penggantian suku cadang yang tidak
+												 dilakukan oleh teknisi InnoGRAPH.<br/>
+												6. Komponen yang rusak dan tidak digaransi adalah
+												 komponen pendukung, seperti kartu, memori, kabel,
+												 remote, baterai, kunci, dll.<br/>
+												7. Jaminan telah habis masa waktunya</div></span><br/>			   			   
+										    </td>									    
+										</tr>
+										<tr>
+		    								<br/>
+			       							<td class="text-left" style="border:1px solid #000; width:50%;">
+					     		      			<span><strong>B. KETENTUAN UMUM</strong><br/>
+												<div style="text-align:justify;">1. Garansi ini diberikan untuk produk yang dikeluarkan
+												 InnoGRAPH.<br/>
+												2. Garansi ini berlaku hingga tanggal masa berakhir yang
+												 tertera di halaman utama.<br/>
+												3. Garansi berlaku jika konsumen dapat menunjukkan
+												 kartu garansi yang berlaku.<br/>
+												4. Konsumen yang ingin memperpanjang masa garansi dapat dilakukan pada saat pembelian (PO) diawal. kami tidak melayani perpanjangan garansi setelah unit diterima.<br/>
+												5. Masa berlaku garansi mulai berlaku sejak tanggal barang
+												 dikirim ke konsumen.</div></span><br/>					   			   
+										    </td>	
+										    <td class="text-left" style="border:1px solid #000; width:50%;">
+					     		      			<span><strong>JENIS-JENIS LAYANAN TAMBAHAN :</strong><br/>
+												<div style="text-align:justify;">1. On Call (di luar masa Garansi)
+												Layanan ini berlaku untuk konsumen yang masa garansinya
+												sudah habis dan belum memperpanjang garansinya dan
+												konsumen tersebut menginginkan perawatan atau perbaikan
+												dilakukan di tempat konsumen.
+												Biaya Rp. 450.000
+												Catatan :
+												 - Layanan ini terbatas di hari kerja dan jam kerja.
+												 - Biaya pergantian suku cadang ditanggungkan
+												 konsumen (jika masih ada).
+												 - Berlaku untuk wilayah Jabodetabek.<br/>
+												2. Extended Warranty
+												InnoGRAPH menawarkan perpanjangan garansi untuk
+												produk-produk digital mulai tahun ke-2 hingga ke-3,
+												silahkan hubungi tim After Sales InnoGRAPH atau Sales
+												anda untuk info lebih lanjut.</div></span><br/>
+\		   			   
+										    </td>									    
+										</tr>				
+								</table>
+							</div>
+							<div>
+								<td colspan="2" style="border:1px solid #000;height: 100px;">
+			     		      			<span><strong>CATATAN :</strong><br/>
+												<div style="text-align:justify;">Jika pada suatu saan konsumen menemukan kerusakan pada
+												unit, dan menginginkan teknisi InnoGRAPH datang langsung
+												ke lokasi, maka konsumen dapat meminta layanan On Call
+												dengan menghubungi tim After sales InnoGRAPH. Sertakan
+												detil kerusakan beserta foto ke email : aftersales@innograph.com. Telp : (021) 78831075 . ext : 105</div></span><br/>
+										<span><strong>DEFINISI :</strong><br/>
+												<div style="text-align:justify;">1. Jam kerja : 08.30-17.30<br/>
+												2.  Respond Time : InnoGRAPH melakukan eskalasi melalui telepon dan email.<br/>
+												3.  Resolution Time : InnoGRAPH menemukan permasalahan
+												 dan perkiraan perbaikan (waktu dan suku
+												 cadang).<br/>
+												4.  Down Time : Perkiraan waktu perbaikan<br/>
+												</div></span><br/>
+					   			 </td>
+							</div>
+
+				    	</div>
+				    	<div class="footer">
+		                        <div class="row">
+		                            <table style="font-size: 12px;width: 100%;">
+		                                <tr>
+		                                    <td style="padding:15px 20px;vertical-align:top">
+		                                        <img style="width:120px" src="/bt_sales_warranty/static/src/img/displaystore.png"/>
+		                                        <div style="margin-top:5px">https://displaystore.id</div>
+		                                    </td>
+		                                    <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top;">
+		                                        <div style="margin-left: 220px;">
+		                                            <div style="font-weight:bold;display:inline-block;width:70px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+		                                            <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1075 <br/>
+		                                            <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>: (62) 21 7883 1075 <br/>
+		                                            <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1692 <br/>
+		                                            <div style="font-weight:bold;display:inline-block;width:70px">Website</div>: http://innograph.com <br/>
+		                                        </div>
+		                                    </td>
+		                                </tr>
+		                            </table>
+		                        </div>
+		                    </div>
+		             
+		            </t>
+		        </t>
+		    </template>
+	</data>
+</odoo>
