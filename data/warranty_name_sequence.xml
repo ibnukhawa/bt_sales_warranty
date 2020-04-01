@@ -6,5 +6,11 @@
 		    <field name="prefix">ISG-WAR</field>
 		    <field name="padding">4</field>
 		</record>
+    	<record id="service_sequence" model="ir.sequence">
+		    <field name="name">Service</field>
+		    <field name="code">service.details</field>
+		    <field name="prefix">SERV-ISG-</field>
+		    <field name="padding">4</field>
+		</record>
     </data>
 </odoo>
