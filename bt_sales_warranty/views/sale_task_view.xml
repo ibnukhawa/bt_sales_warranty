@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="menu_sale_tasks"
+                  name="Product Tasks" 
+                  parent="project_id_menu"
+                  sequence="8"
+                  groups="base.group_no_one"
+                  action="abs_sales_checklist.sale_tasks_action"/>
+</odoo>
