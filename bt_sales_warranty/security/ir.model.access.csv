@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+service_manager,service_manager,model_service_details,group_warranty_manager,1,1,1,1
+warranty_manager,warranty_manager,model_warranty_details,group_warranty_manager,1,1,1,1
+service_user,warranty_user,model_service_details,group_warranty_user,1,1,0,0
+warranty_user,warranty_user,model_warranty_details,group_warranty_user,1,1,0,0
+service_digital,warranty_digital,model_service_details,group_warranty_digital,1,1,1,0
+warranty_digital,warranty_digital,model_warranty_details,group_warranty_digital,1,1,1,0
+
