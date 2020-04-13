@@ -72,14 +72,13 @@ class Service(models.Model):
         action = self.env.ref('project.view_task_form2').read()[0]
         action['context'] = {'default_warranty_id':self.id}
         action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
-
-        if len(task) > 1:
-            action['domain'] = [('id', 'in', task.ids)]
-        elif len(task) == 1:
-            action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
-            action['res_id'] = task.ids[0] 
-        else:
-            action['domain'] = [('id', 'in', task.ids)]
+        # if len(task) > 1:
+        #     action['domain'] = [('id', 'in', task.ids)]
+        # elif len(task) == 1:
+        #     action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
+        #     action['res_id'] = task.ids[0] 
+        # else:
+        #     action['domain'] = [('id', 'in', task.ids)]
         return action
     # vim:expandtab:smartindent:tabstop=2:softtabstop=2:shiftwidth=2:    
     
@@ -87,6 +86,7 @@ class Service(models.Model):
         _inherit = 'project.task'
 
         warranty_id = fields.Many2one('warranty.details',string='Warranty')
+    
     
     class ResPartner(models.Model):
         _inherit = 'res.partner'
@@ -101,4 +101,3 @@ class Service(models.Model):
                 'view_type': 'form',
                 'context': {'default_user_id': self.id},
                 }
-

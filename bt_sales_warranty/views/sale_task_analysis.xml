@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        
+        <menuitem id="menu_sale_tasks_analysis"
+                  name="Product Tasks Analysis" 
+                  parent="project_id_menu"
+                  sequence="11"
+                  groups="sales_team.group_sale_manager"
+                  action="abs_sales_checklist.sale_tasks_analysis_action"/>
+</odoo>
