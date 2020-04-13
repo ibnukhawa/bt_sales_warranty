@@ -17,6 +17,7 @@ class Service(models.Model):
     name = fields.Char(string='Service ID',  copy=False,  index=True, default=lambda self: _('New'))
     warranty_id = fields.Many2one('warranty.details',string='Warranty')
     product_id = fields.Many2one('product.product',string='Product', related='warranty_id.product_id')
+    partner_id = fields.Many2one('res.partner',string='Customer', track_visibility='onchange', related='warranty_id.partner_id')
     sno = fields.Char(string='Serial No' , related='warranty_id.sno')
     warranty_end_date = fields.Date(string='Warranty End Date', related='warranty_id.warranty_end_date')
     date_received = fields.Date(string='Received Date',track_visibility='onchange',default=datetime.now())
@@ -71,6 +72,7 @@ class Service(models.Model):
         action = self.env.ref('project.view_task_form2').read()[0]
         action['context'] = {'default_warranty_id':self.id}
         action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
+
         if len(task) > 1:
             action['domain'] = [('id', 'in', task.ids)]
         elif len(task) == 1:
@@ -86,4 +88,17 @@ class Service(models.Model):
 
         warranty_id = fields.Many2one('warranty.details',string='Warranty')
     
-        
+    class ResPartner(models.Model):
+        _inherit = 'res.partner'
+
+
+    def send_msg(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Whatsapp Message'),
+                'res_model': 'whatsapp.message.wizard',
+                'target': 'new',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'context': {'default_user_id': self.id},
+                }
+

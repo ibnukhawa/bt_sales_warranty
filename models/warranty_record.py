@@ -108,5 +108,20 @@ class Warranty(models.Model):
         print '==========warranty_records_expired==========', warranty_records
         for val in warranty_records:                        
             val.state = 'expired'        
-        
+    
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+
+    def send_msg(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Whatsapp Message'),
+                'res_model': 'whatsapp.message.wizard',
+                'target': 'new',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'context': {'default_user_id': self.id},
+                }
+
 # vim:expandtab:smartindent:tabstop=2:softtabstop=2:shiftwidth=2:        
