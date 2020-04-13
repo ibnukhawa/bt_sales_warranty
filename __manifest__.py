@@ -24,6 +24,7 @@ The module helps to manage the warranty details and service information of produ
         'report/warranty_detail_report.xml',
         #'security/ir.model.access.csv',
         #'views/security_group.xml'
+        'wizard/whatsapp.xml',
     ],
     'images': ['static/description/bt_sales_warranty_banner.jpg'],
     'installable': True,

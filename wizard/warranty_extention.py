@@ -16,4 +16,6 @@ class Warrantyextention(models.TransientModel):
         active_warranty.message_post(body=_("Warranty Extended"))
         return True 
 
+    
+
 # vim:expandtab:smartindent:tabstop=2:softtabstop=2:shiftwidth=2:

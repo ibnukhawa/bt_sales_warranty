@@ -80,3 +80,10 @@ class SaleQuotation(models.Model):
     date_order = fields.Datetime(string='Order Date', required=True, readonly=True, index=True, copy=False, default=fields.Datetime.now)
     # validity_date = fields.Date(string='Expiration Date', readonly=True, copy=False ),
     # payment_term_id = fields.Many2one('account.payment.term', string='Payment Terms', oldname='payment_term')
+
+    @api.model
+    def create(self,values):
+        seq = self.env['ir.sequence'].get('sale.quotation') 
+        values['name'] = seq
+        result = super(SaleQuotation,self).create(values)
+        return result
