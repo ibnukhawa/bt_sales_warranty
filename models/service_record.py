@@ -68,17 +68,9 @@ class Service(models.Model):
             
     @api.multi
     def action_warranty_task(self):
-<<<<<<< HEAD
         task = self.env['project.task'].search([('project_id','=',"After Sales")])
         action = self.env.ref('project.action_view_task').read()[0]
         action['context'] = {'warranty_id':self.id}
-=======
-        task = self.env['project.task'].search([('warranty_id','=',self.id)])
-        action = self.env.ref('project.view_task_form2').read()[0]
-        action['context'] = {'default_warranty_id':self.id}
-        action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
-
->>>>>>> 60a67a9381cc1bbf75d53ed75f402f3e7fa6bddd
         if len(task) > 1:
             action['domain'] = [('id', 'in', task.ids)]
         elif len(task) == 1:
@@ -100,26 +92,7 @@ class Service(models.Model):
                     'context': {'default_user_id': self.id},
                     }
 
-<<<<<<< HEAD
 class ServiceTask(models.Model):
     _inherit = 'project.task'
 
     warranty_id = fields.Many2one('warranty.details',string='Warranty')
-=======
-        warranty_id = fields.Many2one('warranty.details',string='Warranty')
-    
-    class ResPartner(models.Model):
-        _inherit = 'res.partner'
-
-
-    def send_msg(self):
-        return {'type': 'ir.actions.act_window',
-                'name': _('Whatsapp Message'),
-                'res_model': 'whatsapp.message.wizard',
-                'target': 'new',
-                'view_mode': 'form',
-                'view_type': 'form',
-                'context': {'default_user_id': self.id},
-                }
-
->>>>>>> 60a67a9381cc1bbf75d53ed75f402f3e7fa6bddd
