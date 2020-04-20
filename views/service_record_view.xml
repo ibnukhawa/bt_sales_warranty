@@ -8,6 +8,7 @@
                <tree string="Sales Servcie Details" class="">
 				<field name="name"/>
 				<field name="warranty_id"/>
+				<field name="partner_id"/>
 				<field name="product_id"/>
 				<field name="date_received"/>
 		        <field name="return_date"/>
@@ -40,6 +41,11 @@
 								<field string="Task" name="task_count" widget="statinfo"/>
 							</button>
 						</div>
+						<xpath expr="//button[@name='toggle_active']" position="before">
+							<div class="oe_button_box" name="button_box">
+								<button name="send_msg" string="Whatsapp Message" type="object" class="oe_stat_button" icon="fa-whatsapp"/>
+							</div>
+						</xpath>
 						<div class="oe_title">
 							<h1>
 								<field name="name" readonly="1" required="True"/>
@@ -49,7 +55,8 @@
 		                    	<group>
 									<field name="responsible_id"/>
 		                     		<field name="warranty_id" domain="[('state','in',['inwarranty','toexpire'])]" attrs="{'readonly': [('state', '!=', 'registered')]}" required="True"/>
-		                    		<field name="product_id" attrs="{'readonly': [('state', '!=', 'registered')]}" required="True" />
+		                    		<field name="partner_id"/>
+									<field name="product_id" attrs="{'readonly': [('state', '!=', 'registered')]}" required="True" />
 		                    		<field name="sno" attrs="{'readonly': [('state', '!=', 'registered')]}"/>
 		                    		<field name="warranty_expired" readonly="1"/>
 		                    	</group>
@@ -89,5 +96,17 @@
                     Create new service line here..</p>
             </field>
         </record>    
+		<record id="whatsapp_res_partner" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='toggle_active']" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="send_msg" string="Whatsapp Message" type="object" class="oe_stat_button" icon="fa-whatsapp"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
     <menuitem name="Service" id="sales_warranty_third_sub_menu" parent="bt_sales_warranty.sales_warranty_sub_menu"  action="sales_service_details_action" /> 
 </odoo>
