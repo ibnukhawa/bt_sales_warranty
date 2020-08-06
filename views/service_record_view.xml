@@ -53,16 +53,16 @@
 						</div>
 		                    <group>
 		                    	<group>
-									<field name="responsible_id"/>
 		                     		<field name="warranty_id" domain="[('state','in',['inwarranty','toexpire'])]" attrs="{'readonly': [('state', '!=', 'registered')]}" required="True"/>
 		                    		<field name="partner_id"/>
 									<field name="product_id" attrs="{'readonly': [('state', '!=', 'registered')]}" required="True" />
-		                    		<field name="sno" attrs="{'readonly': [('state', '!=', 'registered')]}"/>
-		                    		<field name="warranty_expired" readonly="1"/>
+		                    		<field name="sno_id" attrs="{'readonly': [('state', '!=', 'registered')]}"/>
 		                    	</group>
 		                    	<group>	
 		                    		<field name="date_received" attrs="{'readonly': [('state', '!=', 'registered')]}"/>
 		                    		<field name="return_date"/>
+									<field name="responsible_id"/>
+									<field name="warranty_expired" readonly="1"/>
 		                   		</group>
 		                   	</group>
 				            <notebook>
@@ -108,5 +108,8 @@
                 </xpath>
             </field>
         </record>
-    <menuitem name="Service" id="sales_warranty_third_sub_menu" parent="bt_sales_warranty.sales_warranty_sub_menu"  action="sales_service_details_action" /> 
+    <menuitem 	name="Service" 
+				id="sales_warranty_third_sub_menu" 
+				parent="bt_sales_warranty.sales_warranty_sub_menu"  
+				action="sales_service_details_action" /> 
 </odoo>
